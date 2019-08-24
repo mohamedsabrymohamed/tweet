@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App;
 use Illuminate\Database\Eloquent\Model;
 
 class Tweet extends Model
@@ -14,9 +15,10 @@ class Tweet extends Model
         'tweet_text_ar',
     ];
 
-    public function getTweetTextAttribute($value){
-        $current_locale = \App::getLocale();
-        if($current_locale == 'ar'){
+    public function getTweetTextAttribute($value)
+    {
+        $current_locale = App::getLocale();
+        if ($current_locale == 'ar') {
             return $this->tweet_text_ar;
         }
         return $value;

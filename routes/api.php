@@ -12,10 +12,10 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::group(['namespace' => 'API' , 'middleware' => 'localization'],function (){
+Route::group(['namespace' => 'API', 'middleware' => 'localization'], function () {
     Route::post('login', 'UserController@login');
     Route::post('register', 'UserController@register');
-    Route::group(['middleware' => 'auth:api'], function(){
+    Route::group(['middleware' => 'auth:api'], function () {
         Route::post('details', 'UserController@details');
         //tweets resources
         Route::post('tweets', 'TweetController@store');

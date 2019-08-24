@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','image',
+        'name', 'email', 'password', 'image',
     ];
 
     /**
@@ -39,17 +39,20 @@ class User extends Authenticatable
     ];
 
 
-    public function getImageAttribute($value){
+    public function getImageAttribute($value)
+    {
         return asset('storage/' . $value);
     }
 
     //followers relation
-    public function followers(){
-        return $this->belongsToMany('App\User','followers','user_id','follower_id');
+    public function followers()
+    {
+        return $this->belongsToMany('App\User', 'followers', 'user_id', 'follower_id');
     }
 
-    public function timeline(){
-        return $this->hasManyThrough('App\Tweet', 'App\Follower','user_id', 'user_id' , 'id' , 'follower_id' );
+    public function timeline()
+    {
+        return $this->hasManyThrough('App\Tweet', 'App\Follower', 'user_id', 'user_id', 'id', 'follower_id');
     }
 
 }

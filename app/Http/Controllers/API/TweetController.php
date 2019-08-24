@@ -6,6 +6,7 @@ use App\Http\Requests\StoreTweet;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Tweet;
+use Illuminate\Http\Response;
 use Illuminate\Session\Store;
 
 class TweetController extends Controller
@@ -15,28 +16,27 @@ class TweetController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(StoreTweet $request)
     {
         $validated = $request->validated();
-        $tweet     = Tweet::create($validated);
+        $tweet = Tweet::create($validated);
         return response()->json(['success' => $tweet], $this->successStatus);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Response
      */
     public function destroy($id)
     {
         $tweet = Tweet::find($id);
 
-        if (! $tweet)
-        {
+        if (!$tweet) {
             return response()->json(['message' => 'Record not found'], 404);
         }
 
