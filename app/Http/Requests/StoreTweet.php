@@ -24,8 +24,9 @@ class StoreTweet extends FormRequest
     public function rules()
     {
         return [
-            'tweet_text'      => 'required|min:10|max:140',
-            'user_id'         => 'required|exists:users,id',
+            'tweet_text'         => 'required|min:10|max:140',
+            'tweet_text_ar'      => 'required|min:10|max:140',
+            'user_id'            => 'required|exists:users,id',
         ];
     }
 }
