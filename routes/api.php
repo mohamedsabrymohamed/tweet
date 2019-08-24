@@ -20,5 +20,8 @@ Route::namespace('API')->group(function (){
         //tweets resources
         Route::post('tweets', 'TweetController@store');
         Route::delete('tweets/{id}', 'TweetController@destroy');
+        //followers resources
+        Route::post('follow', 'UserController@follow');
+        Route::get('timeline/{id}', 'UserController@timeline');
     });
 });

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Requests\FollowUser;
+use App\Http\Requests\Timeline;
 use App\Http\Requests\UserRegister;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -61,5 +63,26 @@ class UserController extends Controller
     {
         $user = Auth::user();
         return response()->json(['success' => $user], $this->successStatus);
+    }
+
+
+    public function follow(FollowUser $request){
+        $validated  = $request->validated();
+        $user       = User::find($validated['user_id']);
+        $user->followers()->detach($validated['follower_id']);
+        $user->followers()->attach($validated['follower_id']);
+
+        return response()->json(['success' => 'Successfully Followed'], $this->successStatus);
+    }
+
+
+    public function timeline($id){
+        $user = User::with('followers')->where('id',$id)->first();
+
+        if (! $user)
+        {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+        return $user->timeline()->paginate(3);
     }
 }
